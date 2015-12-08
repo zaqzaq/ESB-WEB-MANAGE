@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Hello Amaze UI</title>
+</head>
+<body>
+<div id ="test">aa</div>
+</body>
+
+<script type="text/x-handlebars-template" id="amz-tpl-accordion">
+    {{>accordion}}
+  </script>
+  <script src="AppUser/resources/assets/js/jquery.min.js"></script>
+<script src="AppUser/resources/assets/js/amazeui.js"></script>
+<script src="AppUser/resources/assets/js/handlebars.min.js"></script>
+<script src="AppUser/resources/assets/js/amazeui.widgets.helper.js"></script>
+<script src="AppUser/resources/assets/js/app.js"></script>
+<script>
+(function() {
+  "use strict";
+  this.userApp.accordion = {
+    data : {
+        "id": "doc-accordion-example",
+        "className": "doc-accordion-class",
+        "theme": "basic",
+        "content": [
+          {
+            "title": "标题一",
+            "content": "内容一",
+            "active": true
+          },
+          {
+            "title": "标题二",
+            "content": "内容二"
+          },
+          {
+            "title": "标题三",
+            "content": "内容三"
+          }
+        ]
+      },
+    init : function() {
+      var $tpl = $('#amz-tpl-accordion');
+      var source = $tpl.text();
+      var template = Handlebars.compile(source);
+      var html = template(this.data);
+      $tpl.before(html);
+    }
+  }
+}).call(this);
+$(function() {
+  "use strict";
+  userApp.accordion.init();
+});
+</script>
+</html>
