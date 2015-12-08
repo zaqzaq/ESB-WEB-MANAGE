@@ -1,0 +1,8 @@
+target
+/target/m2e-jee
+/target/maven-archiver
+/target/surefire
+/target/zaq-ESB-Web-Manage-0.0.1-SNAPSHOT
+/target/zaq-ESB-Web-Manage-0.0.1-SNAPSHOT.war
+/target/classes
+/target/generated-sources
