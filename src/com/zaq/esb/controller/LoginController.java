@@ -42,11 +42,11 @@ public class LoginController extends BaseController {
 		
 		if(null!=model){
 			System.out.println(EncryptUtil.encryptMd5(password));
-			if(EncryptUtil.encryptMd5(password).equals(model.get("password"))){
+			if(EncryptUtil.encryptMd5(password).equals(model.getStr("password"))){
 				retMsg=true;
 				saveCookie(userName, password, rememberMe, response);
-				request.getSession().setAttribute("fullname", model.get("fullname"));
-				request.getSession().setAttribute("username", model.get("username"));
+				request.getSession().setAttribute("fullname", model.getStr("fullname"));
+				request.getSession().setAttribute("username", model.getStr("username"));
 				model=null;
 			}
 		}

@@ -3,24 +3,42 @@
  */
 package com.zaq.esb.common;
 
-import javax.servlet.ServletContext;
+import java.io.File;
+
 import javax.servlet.ServletContextEvent;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.ContextLoaderListener;
 
+import com.zaq.esb.util.AppListenerForOsFS;
+import com.zaq.esb.util.AppUtil;
+import com.zaq.esb.util.FileMonitorUtil;
+
 public class StartUpListener extends ContextLoaderListener {
+	private Logger logger=Logger.getLogger(getClass());
   @Override
   public void contextInitialized(ServletContextEvent event) {
     super.contextInitialized(event);
     event.getServletContext().setAttribute("ctx","/"+event.getServletContext().getServletContextName());
+    String rootPath=AppUtil.getPropertity("listenerPath");
+    
+    new AppListenerForOsFS(rootPath,true).start();//监听root路径
+    
+    
+    for(File f:new File(rootPath).listFiles()){
+    	if(f.isDirectory()){
+    		logger.info("初始化app："+f.getAbsolutePath());
+    		FileMonitorUtil.addListener(new AppListenerForOsFS(f.getAbsolutePath()));
+    		
+    		for(File ff:f.listFiles()){
+    			if(ff.isFile()&&ff.getName().endsWith(".xml")){
+    				logger.info("初始化xml："+ff.getAbsolutePath());
+    				AppUtil.newAppXml(ff.getAbsolutePath(), f.getAbsolutePath());
+    			}
+    		}
+    		
+    	}
+    }
+    
   }
-
-	@Override
-	protected Class<?> determineContextClass(ServletContext servletContext) {
-		Thread thread= new AppListenerForOsFS();
-	    thread.setDaemon(true);
-	    thread.start();
-		return super.determineContextClass(servletContext);
-	}
-
 }
