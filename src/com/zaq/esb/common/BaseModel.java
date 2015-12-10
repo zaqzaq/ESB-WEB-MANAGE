@@ -10,10 +10,13 @@ public class BaseModel {
 	private SqlRowSet rowSet;
 	private Map<String, Object> propStore=new HashMap<String, Object>();
 	public BaseModel(){
-		
 	}
 	public BaseModel(SqlRowSet rowSet){
 		this.rowSet=rowSet;
+	}
+	
+	public BaseModel(Map<String, Object> propStore){
+		this.propStore=propStore;
 	}
 	
 	public void set(String name,Object value){

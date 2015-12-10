@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Properties;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
@@ -104,6 +105,7 @@ public class AppUtil implements ApplicationContextAware{
 			appInfo.set("timeStart", new Date());
 			appInfo.set("flowFuns", "准备解析xml文件获取flow节点的name值");
 			appInfo.set("userLastUpdate", userLastUpdate);
+			appInfo.set("name", FilenameUtils.getBaseName(path));
 			
 			appInfoService.add(appInfo);
 		}
@@ -136,6 +138,7 @@ public class AppUtil implements ApplicationContextAware{
 			appInfo.set("status", Constans.STATUS_Y);
 			appInfo.set("timeStart", new Date());
 			appInfo.set("userLastUpdate", userLastUpdate);
+			appInfo.set("name", FilenameUtils.getBaseName(path));
 			
 			appInfoService.add(appInfo);
 			//同时初始化一下新加的app的xml  解决在copy文件夹时 监听器还未启动而xml已copy完成的BUG

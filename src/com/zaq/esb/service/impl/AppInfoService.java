@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -19,6 +22,9 @@ import com.zaq.esb.common.BaseService;
 @Service("appInfoService")
 public class AppInfoService extends BaseService {
 	private static final String getByFilePath = "select id,parentId,filePath,name,remark,status,timeStart,userLastUpdate,flowFuns,isDel from app_info where filePath=?";
+	private static final String listApp = "select id,parentId,filePath,name,remark,status,timeStart,userLastUpdate,flowFuns,isDel from app_info where parentId is null";
+	private static final String getByApp= "select id,parentId,filePath,name,remark,status,timeStart,userLastUpdate,flowFuns,isDel from app_info where parentId = ?";
+	private static final String getById= "select id,parentId,filePath,name,remark,status,timeStart,userLastUpdate,flowFuns,isDel from app_info where id = ?";
 
 	private static final String sqlInsert = "INSERT INTO app_info (parentId,filePath,status,timeStart,flowFuns,userLastUpdate,name,isDel)" 
 													+ " VALUES (?,?,?,?,?,?,?,0)";
@@ -33,6 +39,38 @@ public class AppInfoService extends BaseService {
 		} else {
 			return null;
 		}
+	}
+	public BaseModel getById(Long id) {
+		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(getById, id);
+		if (rowSet.next()) {
+			return new BaseModel(rowSet);
+		} else {
+			return null;
+		}
+	}
+	public List<BaseModel> getByApp(Long appId) {
+		List<BaseModel> list=new ArrayList<>();
+		
+		List<Map<String,Object>>  listMap = jdbcTemplate.queryForList(getByApp,appId);
+		for(Map<String,Object> map:listMap){
+			
+			list.add(new BaseModel(map));
+		}
+		
+		return list;
+	}
+	
+	
+	public List<BaseModel> listApp(){
+		List<BaseModel> list=new ArrayList<>();
+		
+		List<Map<String,Object>>  listMap = jdbcTemplate.queryForList(listApp);
+		for(Map<String,Object> map:listMap){
+			
+			list.add(new BaseModel(map));
+		}
+		
+		return list;
 	}
 
 	@Transactional(propagation = Propagation.SUPPORTS)
@@ -85,6 +123,5 @@ public class AppInfoService extends BaseService {
 		}, genKey);
 		appInfo.set("id", genKey.getKey().longValue());
 	}
-	
-	
+
 }
