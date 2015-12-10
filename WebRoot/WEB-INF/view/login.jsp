@@ -8,8 +8,8 @@
 <title>登录界面</title>
 
 <link rel="stylesheet" type="text/css"
-	href="resources/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="resources/css/admin.css" />
+	href="lib/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/login.css" />
 <style type="text/css">
 html,body {
 	height: 100%;

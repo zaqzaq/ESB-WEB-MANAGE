@@ -22,6 +22,9 @@
 	href="lib/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
 
+<link rel="stylesheet" href="resources/css/style.css">
+<script src="resources/js/main.js" type="text/javascript"></script>
+
 <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
 
 <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
@@ -90,8 +93,8 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="" href="index.html"><span class="navbar-brand"><span
-					class="fa fa-paper-plane"></span> ESB WEB管理</span></a>
+			<span class="navbar-brand"><span
+					class="fa fa-paper-plane"></span> ESB WEB管理</span>
 		</div>
 
 		<div class="navbar-collapse collapse" style="height: 1px;">
@@ -176,7 +179,7 @@
 			</footer>
 		</div>
 	</div>
-
+<div id="alertMessage"></div>
 	<script src="lib/bootstrap/js/bootstrap.js"></script>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
