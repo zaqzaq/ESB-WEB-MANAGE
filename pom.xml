@@ -63,7 +63,8 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.7.0-rc1</version>
+			<version>2.6.3</version>
+<!-- 			2.7.0-rc1   版本太高还不兼容springmvc4.2.3-->
 		</dependency>
 		
 		<dependency>

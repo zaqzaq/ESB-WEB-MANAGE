@@ -28,34 +28,43 @@ public class BaseModel {
 	}
 
 	public String getStr(String prop){
-		if(null==rowSet){
-			return null==propStore.get(prop)?null:(String)propStore.get(prop);
-		}else{
+		if(null!=propStore.get(prop)){
+			return (String) propStore.get(prop);
+		}else if(null!=rowSet){
 			return rowSet.getString(prop);
+		}else{
+			return null;
 		}
 	}
 	
 	public Integer getInt(String prop){
-		if(null==rowSet){
-			return null==propStore.get(prop)?null:(Integer) propStore.get(prop);
-		}else{
+		if(null!=propStore.get(prop)){
+			return (Integer) propStore.get(prop);
+		}else if(null!=rowSet){
 			return rowSet.getInt(prop);
+		}else{
+			return null;
 		}
 	}
 	
 	public Long getLong(String prop){
-		if(null==rowSet){
-			return null==propStore.get(prop)?null:(Long) propStore.get(prop);
-		}else{
+		if(null!=propStore.get(prop)){
+			return (Long) propStore.get(prop);
+		}else if(null!=rowSet){
 			return rowSet.getLong(prop);
+		}else{
+			return null;
 		}
 	}
 	
 	public Date getDate(String prop){
-		if(null==rowSet){
-			return null==propStore.get(prop)?null:(Date) propStore.get(prop);
-		}else{
+		if(null!=propStore.get(prop)){
+			return (Date) propStore.get(prop);
+		}else if(null!=rowSet){
 			return rowSet.getDate(prop);
+		}else{
+			return null;
 		}
+
 	}
 }

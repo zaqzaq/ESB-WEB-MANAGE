@@ -10,9 +10,7 @@ import javax.servlet.ServletContextEvent;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.ContextLoaderListener;
 
-import com.zaq.esb.util.AppListenerForOsFS;
 import com.zaq.esb.util.AppUtil;
-import com.zaq.esb.util.FileMonitorUtil;
 
 public class StartUpListener extends ContextLoaderListener {
 	private Logger logger=Logger.getLogger(getClass());
@@ -28,12 +26,12 @@ public class StartUpListener extends ContextLoaderListener {
     for(File f:new File(rootPath).listFiles()){
     	if(f.isDirectory()){
     		logger.info("初始化app："+f.getAbsolutePath());
-    		FileMonitorUtil.addListener(new AppListenerForOsFS(f.getAbsolutePath()));
+    		FileMonitor.addListener(new AppListenerForOsFS(f.getAbsolutePath()));
     		
     		for(File ff:f.listFiles()){
     			if(ff.isFile()&&ff.getName().endsWith(".xml")){
     				logger.info("初始化xml："+ff.getAbsolutePath());
-    				AppUtil.newAppXml(ff.getAbsolutePath(), f.getAbsolutePath());
+    				FileMonitor.newAppXml(ff.getAbsolutePath(), f.getAbsolutePath());
     			}
     		}
     		

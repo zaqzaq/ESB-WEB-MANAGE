@@ -1,4 +1,4 @@
-package com.zaq.esb.util;
+package com.zaq.esb.common;
 
 import java.io.File;
 import java.io.IOException;
@@ -68,12 +68,12 @@ public class AppListenerForOsFS extends Thread {
 						if(isRoot){
 							if(new File(path).isDirectory()){
 								//新建了一个APP应用
-								 FileMonitorUtil.addListener(new AppListenerForOsFS(path));
+								 FileMonitor.addListener(new AppListenerForOsFS(path));
 							}
 						}else{
 							if(event.context().toString().endsWith(".xml")){
 								// 新建了一个App的xml配置
-								AppUtil.newAppXml(path,listenerPath);
+								FileMonitor.newAppXml(path,listenerPath);
 							}
 						}
 					}
@@ -81,13 +81,13 @@ public class AppListenerForOsFS extends Thread {
 						if(isRoot){
 //							if(new File(path).isDirectory()){
 								//删除了一个APP应用
-								FileMonitorUtil.delListener(path);
+								FileMonitor.delListener(path);
 //							}
 							
 						}else{
 							if(event.context().toString().endsWith(".xml")){
 								//删除了一个App的xml配置
-								AppUtil.delAppXml(path);
+								FileMonitor.delAppOrXml(path);
 							}
 						}
 					}
@@ -95,7 +95,7 @@ public class AppListenerForOsFS extends Thread {
 						//子应用的文件修改
 						if(event.context().toString().endsWith(".xml")){
 							// 应用的xml修改了
-							AppUtil.updateAppXml(path,listenerPath);
+							FileMonitor.updateAppXml(path,listenerPath);
 						}
 						
 					}
@@ -116,7 +116,7 @@ public class AppListenerForOsFS extends Thread {
 			}
 			//重新开启一个线程监听
 			if(flag){
-				FileMonitorUtil.addListener(new AppListenerForOsFS(listenerPath));
+				FileMonitor.addListener(new AppListenerForOsFS(listenerPath));
 			}
 		}
 

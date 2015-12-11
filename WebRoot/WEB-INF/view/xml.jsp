@@ -11,6 +11,7 @@
     <div id="myTabContent" class="tab-content">
       <div class="tab-pane active in col-md-5" id="info">
 		        <div class="form-group">
+		       	<input type="hidden" id="xmlId" name="xmlId" value="${id }" class="form-control">
 		        <label>名称</label>
 		        <input type="text" id="xmlName" name="xmlName" value="${name }" class="form-control">
 		        </div>
