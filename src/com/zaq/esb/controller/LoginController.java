@@ -83,7 +83,7 @@ public class LoginController extends BaseController {
 		for(BaseModel m: appInfoService.listApp()) {
 			listGroup.append("<li><a href=");
 			listGroup.append("'#' ");
-			listGroup.append("onclick='showPage(\"admin/app/"+m.getLong("id")+"\")' ");
+			listGroup.append("onclick='showPage(\"admin/app/"+m.getLong("id")+"\",\""+m.getStr("filePath")+"\")' ");
 			if(m.getInt("isDel").intValue()==Constans.DEL_Y){
 				listGroup.append("style=\"text-decoration:line-through;color:red\"");
 				del++;

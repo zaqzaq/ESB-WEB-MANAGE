@@ -1,4 +1,22 @@
- 
+$(function() {
+	//点击消息关闭提示
+	$('#alertMessage').click(function() {
+		hideTop();
+	});
+});
+
+/**
+ * 加载中心面板页面
+ * @param {} url
+ */
+function showPage(url,filePath){
+      $('#page-main').html('页面加载中，请稍后...'); // 设置页面加载时的loading图片
+      $('#page-main').load(url); // ajax加载页面
+      if(filePath){
+      	$("#filePath").html(filePath);
+      }
+} 
+
 function hideTop() {
 	$('#alertMessage').animate({
 		opacity : 0,
@@ -7,11 +25,6 @@ function hideTop() {
 		$(this).hide();
 	});
 }
-
-//点击消息关闭提示
-$('#alertMessage').click(function() {
-	hideTop();
-});
 //显示错误提示
 function showError(str) {
 	$('#alertMessage').addClass('error').html(str).stop(true, true).show().animate({

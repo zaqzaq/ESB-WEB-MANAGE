@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zaq.esb.common.BaseController;
@@ -51,6 +53,76 @@ public class ESBController extends BaseController{
 		}
 		retVal.append("]");
 		return retVal.toString();
+	}
+	
+	/**
+	 * 上传xml 或app应用
+	 * @param appId
+	 * @param file
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("app/upload")
+	@ResponseBody
+	public Boolean upload(@RequestParam(value = "appId", required = false) Long appId,
+							@RequestParam(value = "file", required = true) MultipartFile file,
+							HttpServletRequest request) {
+		if(null==appId){
+			//TODO 部署应用  估计不需要，先不写了咯
+			return false;
+		}else{
+			//加载 xml
+			BaseModel appInfo=appInfoService.getById(appId);
+			String appFilePath=appInfo.getStr("filePath");
+			
+			try {
+				String xmlFilePath=appFilePath+File.separator+file.getOriginalFilename();
+				FileUtils.writeByteArrayToFile(new File(xmlFilePath), file.getBytes());
+				appInfo=appInfoService.getByFilePath(xmlFilePath);
+				if(null==appInfo){
+					appInfo=new BaseModel();
+					appInfo.set("parentId", appId);
+					appInfo.set("filePath", xmlFilePath);
+					appInfo.set("status", Constans.STATUS_Y);
+					appInfo.set("timeStart", new Date());
+					appInfo.set("flowFuns", "未描述");
+					appInfo.set("name", file.getOriginalFilename());
+					appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
+					appInfoService.add(appInfo);
+				}else{
+					appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
+					appInfoService.update(appInfo);
+				}
+				
+			} catch (IOException e) {
+				logger.error("加载失败："+appFilePath, e);
+				return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	@RequestMapping("app/xml/del")
+	@ResponseBody
+	public Boolean del(@RequestParam(value = "id", required = true) Long id,
+							HttpServletRequest request) {
+		
+		BaseModel appInfo=appInfoService.getById(id);
+		
+		String xmlFilePath=appInfo.getStr("filePath");
+		
+		try {
+			FileUtils.moveFile(new File(xmlFilePath), new File(xmlFilePath+".delback"));
+		} catch (IOException e) {
+			logger.error("卸载失败："+xmlFilePath, e);
+			return false;
+		}
+		
+		appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
+		appInfoService.update(appInfo);
+		
+		return true;
 	}
 	
 	
@@ -109,6 +181,8 @@ public class ESBController extends BaseController{
 		ModelAndView modelAndView=new ModelAndView("app");
 		List<BaseModel> list= appInfoService.getByApp(appId);
 		modelAndView.addObject("list", list);
+		modelAndView.addObject("appId", appId);
+		
 		return modelAndView;
 	}
 	/**

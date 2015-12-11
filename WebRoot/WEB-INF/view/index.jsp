@@ -21,15 +21,14 @@
 <link rel="stylesheet" type="text/css"
 	href="lib/bootstrap/css/bootstrap.css">
 <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-
 <link rel="stylesheet" href="resources/css/style.css">
-<script src="resources/js/main.js" type="text/javascript"></script>
-
 <script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
-
 <script src="lib/jQuery-Knob/js/jquery.knob.js" type="text/javascript"></script>
+<script src="resources/js/main.js" type="text/javascript"></script>
 <script type="text/javascript">
 	$(function() {
+		//初始化上传组件
+		$("#uploadInputFile").fileinput();
 		$(".knob").knob();
 	});
 </script>
@@ -37,7 +36,12 @@
 
 <link rel="stylesheet" type="text/css" href="stylesheets/theme.css">
 <link rel="stylesheet" type="text/css" href="stylesheets/premium.css">
+<link href="lib/bootstrap/fileinput/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
 
+<script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap/fileinput/js/plugins/canvas-to-blob.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap/fileinput/js/fileinput.min.js"></script>
+<script src="lib/bootstrap/fileinput/js/fileinput_locale_zh.js"></script>
 </head>
 <body class=" theme-blue">
 	<script type="text/javascript">
@@ -77,13 +81,9 @@
 			uls.addClass('visible-xs');
 			$('#main-menu').append(uls.clone());
 		});
+		var current_fullname='${fullname}';
+		var current_username='${username}';
 	</script>
-	<script type="text/javascript">
-	  function showPage(url){
-	      $('#page-main').html('页面加载中，请稍后...'); // 设置页面加载时的loading图片
-	      $('#page-main').load(url); // ajax加载页面
-	  }
-	</script> 
 
 	<div class="navbar navbar-default" role="navigation">
 		<div class="navbar-header">
@@ -122,15 +122,10 @@
 		<ul>
 			<li><a href="#" data-target=".dashboard-menu" class="nav-header"
 				data-toggle="collapse"><i class="fa fa-fw fa-dashboard"></i>
-					APP应用<i class="fa fa-collapse"></i></a></li>
+					APP应用列表<i class="fa fa-collapse"></i></a></li>
 			<li>
 				<ul class="dashboard-menu nav nav-list collapse in">
 					${listGroup }
-					
-					<li>
-						<a href="#" class="panel-heading" onclick='showPage("admin/app/0")'>
-							<span class="fa fa-caret-right"></span>测试页</a>
-					</li>
 					<li>
 						<a href="#page-main" class="panel-heading" data-toggle="collapse">
 							<span class="fa fa-caret-right"></span> 折叠</a>
@@ -157,14 +152,14 @@
 			<h1 class="page-title">ESB 应用</h1>
 			<ul class="breadcrumb">
 				<li><a href="index">首页</a></li>
-				<li class="active">APP</li>
+				<li class="active" id="filePath">APP</li>
 			</ul>
 
 		</div>
 		<div class="main-content">
 			<div class="panel">
         		<div id="page-main" class="panel-collapse panel-body collapse in">
-        			xxxx主面板
+        			欢迎使用ESB WEB管理端
 				</div>		
 			</div>
 		
@@ -179,8 +174,19 @@
 			</footer>
 		</div>
 	</div>
-<div id="alertMessage"></div>
-	<script src="lib/bootstrap/js/bootstrap.js"></script>
+	<div id="alertMessage"></div>
+	<div class="modal fade" id="uploadFile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <h3 id="myModalLabel">上传xml文件</h3>
+	        </div>
+	        <div class="modal-body">
+	            <input type="file" name="file" id="uploadInputFile" class="file btn btn-primary" data-preview-file-type="text">
+	        </div>
+	      </div>
+	    </div>
+	</div>
 	<script type="text/javascript">
 		$("[rel=tooltip]").tooltip();
 		$(function() {
