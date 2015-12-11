@@ -3,6 +3,10 @@ $(function() {
 	$('#alertMessage').click(function() {
 		hideTop();
 	});
+	//上传文件组件关闭刷新当前页
+	$('#uploadFile').on('hide.bs.modal', function () {
+			showPage("admin/app/"+$("#appId").val());
+	})
 });
 
 /**

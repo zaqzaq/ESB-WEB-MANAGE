@@ -113,7 +113,7 @@ public class ESBController extends BaseController{
 		String xmlFilePath=appInfo.getStr("filePath");
 		
 		try {
-			FileUtils.moveFile(new File(xmlFilePath), new File(xmlFilePath+".delback"));
+			FileUtils.moveFile(new File(xmlFilePath), new File(xmlFilePath+"."+System.currentTimeMillis()+"_delback"));
 		} catch (IOException e) {
 			logger.error("卸载失败："+xmlFilePath, e);
 			return false;

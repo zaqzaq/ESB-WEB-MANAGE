@@ -19,6 +19,7 @@
 		    uploadUrl: "admin/app/upload?appId=${appId }",
 		    allowedFileExtensions: ["xml"]
         });
+		
 	 });
 </script>
 <div class="btn-toolbar list-toolbar">
