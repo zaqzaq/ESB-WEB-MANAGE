@@ -30,7 +30,7 @@ public class AppInfoService extends BaseService {
 													+ " VALUES (?,?,?,?,?,?,?,0)";
 
 	public static final String sqlUpdate="UPDATE app_info SET name=? ,isDel=?, remark=? ,status=?,timeStart=?,userLastUpdate=?,flowFuns=? where filePath=?  ";
-	public static final String sqlDelete="UPDATE app_info SET isDel=1  WHERE filePath=?  ";
+	public static final String sqlDelete="UPDATE app_info SET isDel=1,status=0  WHERE filePath=?  ";
 
 	public BaseModel getByFilePath(String filePath) {
 		SqlRowSet rowSet = jdbcTemplate.queryForRowSet(getByFilePath, filePath);

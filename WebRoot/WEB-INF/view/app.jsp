@@ -1,3 +1,4 @@
+<%@page import="com.zaq.esb.common.Constans"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -29,16 +30,24 @@
    	%>
    		<tr>
 	      <td><%=++i %></td>
-	      <td><%=m.getStr("name") %></td>
+	      <% if(m.getInt("isDel").intValue()==Constans.DEL_Y){%>
+	    	    <td style="text-decoration:line-through;color:red"><%=m.getStr("name") %></td>
+    	  <% }else{%>	 
+    		<td><%=m.getStr("name") %></td>
+    	  <%  } %>
+	      
 	      <td><%=m.getInt("status")==1?"已部署":"未部署" %></td>
 	      <td><%=m.getStr("flowFuns") %></td>
 	      <td><%=m.getDate("timeStart") %></td>
 	      <td><%=m.getStr("userLastUpdate")==null?"系统":m.getStr("userLastUpdate") %></td>
 	      <td><%=m.getStr("remark")==null?"无":m.getStr("remark") %></td>
+	     
 	      <td>
-	          <a href="#" onclick="showPage('admin/app/xml/<%=m.getLong("id") %>')"><i class="fa fa-pencil"></i></a>
-	          <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
-	      </td>
+		       <a href="#" onclick="showPage('admin/app/xml/<%=m.getLong("id") %>')"><i class="fa fa-pencil"></i></a>
+		     <% if(m.getInt("isDel").intValue()==Constans.DEL_N){%>
+		       <a href="#myModal" role="button" data-toggle="modal"><i class="fa fa-trash-o"></i></a>
+	    	 <% }%>	 
+    	  </td>
 	    </tr>
    	<%		
    		}
@@ -64,7 +73,7 @@
             <h3 id="myModalLabel">Delete Confirmation</h3>
         </div>
         <div class="modal-body">
-            <p class="error-text"><i class="fa fa-warning modal-icon"></i>Are you sure you want to delete the user?<br>This cannot be undone.</p>
+            <p class="error-text"><i class="fa fa-warning modal-icon"></i>确定在删除此xml?<br>删除将会卸载些模块.</p>
         </div>
         <div class="modal-footer">
             <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Cancel</button>

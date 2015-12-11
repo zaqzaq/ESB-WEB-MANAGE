@@ -1,21 +1,14 @@
 package com.zaq.esb.util;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Properties;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-
-import com.zaq.esb.common.BaseModel;
-import com.zaq.esb.common.Constans;
-import com.zaq.esb.service.impl.AppInfoService;
 
 public class AppUtil implements ApplicationContextAware{
 	private static ApplicationContext appContext;
