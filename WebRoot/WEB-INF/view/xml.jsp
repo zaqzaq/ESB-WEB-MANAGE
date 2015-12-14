@@ -17,11 +17,11 @@
 		        </div>
 		        <div class="form-group">
 		        <label>功能</label>
-		        <input type="text" id="xmlFlowFuns" name="xmlFlowFuns" value="${flowFuns }" class="form-control">
+     		    <textarea class="form-control" id="xmlFlowFuns" name="xmlFlowFuns"  rows="3" >${flowFuns }</textarea>
 		        </div>
 		        <div class="form-group">
 		        <label>备注</label>
-		        <input type="text" id="xmlRemark" name="xmlRemark"  value="${remark }" class="form-control">
+		        <textarea class="form-control" id="xmlRemark" name="xmlRemark"  rows="3" >${remark }</textarea>
 		        </div>
 		        <div class="btn-toolbar list-toolbar">
 			      <button class="btn btn-primary" id="saveXmlInfo"><i class="fa fa-save"></i> 保存</button>
@@ -30,7 +30,7 @@
 
       <div class="tab-pane col-md-12" id="xmlContent">
           <div class="form-group">
-            <textarea class="form-control" id="xmlXML" name="xmlXML"  rows="10" >${xml }</textarea>
+            <textarea class="form-control" id="xmlXML" name="xmlXML"  rows="15" >${xml }</textarea>
           </div>
            <div class="btn-toolbar list-toolbar">
 		      <button class="btn btn-success" id="deployXml"><i class="glyphicon glyphicon-heart"></i> 部署</button>
