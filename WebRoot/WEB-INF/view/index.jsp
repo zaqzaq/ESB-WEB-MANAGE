@@ -107,10 +107,10 @@
 				</a>
 
 					<ul class="dropdown-menu">
-						<li><a href="./">My Account</a></li>
+						<li><a href="./">刷新</a></li>
 						<li class="divider"></li>
 						<li class="divider"></li>
-						<li><a tabindex="-1" href="logout">Logout</a></li>
+						<li><a tabindex="-1" href="logout">退出</a></li>
 					</ul></li>
 			</ul>
 
@@ -166,10 +166,7 @@
 			<footer>
 				<hr>
 				<p class="pull-right">
-					信息中心 
-				</p>
-				<p>
-					© 2015 <a href="http://www.ljttech.com" target="_blank">朗捷通</a>
+					有个性，没签名！
 				</p>
 			</footer>
 		</div>

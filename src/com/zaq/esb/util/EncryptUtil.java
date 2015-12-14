@@ -28,7 +28,7 @@ public class EncryptUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String encryptMd5(String inStr) throws Exception {
+	public static String encryptMd5(String inStr){
 
 		MessageDigest md = null;
 		try {
@@ -37,12 +37,10 @@ public class EncryptUtil {
 			return new String( Base64.encodeBase64(digest));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
-			throw e;
+			return "";
 		}
 		
 	}
-	
-
 
 	
 	/**

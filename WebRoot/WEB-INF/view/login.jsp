@@ -10,12 +10,21 @@
 <link rel="stylesheet" type="text/css"
 	href="lib/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/login.css" />
+<script src="lib/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script src="lib/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <style type="text/css">
 html,body {
 	height: 100%;
 }
 </style>
-
+<script type="text/javascript">
+	$(function() {
+		if('${message_login}'){
+			$("#loginAlert").modal('show')
+		}
+		
+	});
+</script>
 </head>
 
 <body>
@@ -62,6 +71,18 @@ html,body {
 		</div>
 	</div>
 
+	<div class="modal fade" id="loginAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	        <div class="modal-header">
+	            <h5 id="myModalLabel">登陆提示</h5>
+	        </div>
+	        <div class="modal-body">
+	        	<h3>${message_login}</h3>
+	        </div>
+	      </div>
+	    </div>
+	</div>
 </body>
 
 </html>

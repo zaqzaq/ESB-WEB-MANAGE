@@ -8,7 +8,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -76,24 +75,26 @@ public class ESBController extends BaseController{
 			String appFilePath=appInfo.getStr("filePath");
 			
 			try {
-				String xmlFilePath=appFilePath+File.separator+file.getOriginalFilename();
-				FileUtils.writeByteArrayToFile(new File(xmlFilePath), file.getBytes());
-				appInfo=appInfoService.getByFilePath(xmlFilePath);
-				if(null==appInfo){
-					appInfo=new BaseModel();
-					appInfo.set("parentId", appId);
-					appInfo.set("filePath", xmlFilePath);
-					appInfo.set("status", Constans.STATUS_Y);
-					appInfo.set("timeStart", new Date());
-					appInfo.set("flowFuns", "未描述");
-					appInfo.set("name", file.getOriginalFilename());
-					appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
-					appInfoService.add(appInfo);
-				}else{
-					appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
-					appInfoService.update(appInfo);
+				//只上传xml文件
+				if("text/xml".equals(file.getContentType())){
+					String xmlFilePath=appFilePath+File.separator+file.getOriginalFilename();
+					FileUtils.writeByteArrayToFile(new File(xmlFilePath), file.getBytes());
+					appInfo=appInfoService.getByFilePath(xmlFilePath);
+					if(null==appInfo){
+						appInfo=new BaseModel();
+						appInfo.set("parentId", appId);
+						appInfo.set("filePath", xmlFilePath);
+						appInfo.set("status", Constans.STATUS_Y);
+						appInfo.set("timeStart", new Date());
+						appInfo.set("flowFuns", "未描述");
+						appInfo.set("name", file.getOriginalFilename());
+						appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
+						appInfoService.add(appInfo);
+					}else{
+						appInfo.set("userLastUpdate", request.getSession().getAttribute("fullname"));
+						appInfoService.update(appInfo);
+					}
 				}
-				
 			} catch (IOException e) {
 				logger.error("加载失败："+appFilePath, e);
 				return false;
